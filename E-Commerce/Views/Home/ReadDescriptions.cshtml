@@ -1,0 +1,88 @@
+﻿@using ECommerce.Models.Home;
+@model List<ProductDetail>
+
+ 
+@{
+    if (Model?.Count() != 0)
+    {
+        
+        <div style="margin-top: 55px" class="container text-center text-light">
+            <div style="display: flex;justify-content: center; align-items: center; color: white;font-size: 20px;margin-bottom: 15px">
+                @ViewBag.Product.Name
+            </div>
+            <div style="padding-bottom: 15px; padding-top: 15px" class="container text-center text-light border border-black">
+
+                <div class="row">
+
+                    <div class="col">
+                        Title
+                    </div>
+                    <div class="col">
+                        Description
+                    </div>
+
+                </div>
+
+                @{
+                    foreach (var descr in Model)
+                    {
+                       
+                       
+                        
+                             
+                        <hr />
+                             
+                        <div class="row">
+                            <div class="col">@descr.Title</div>
+                            <div class="col">@descr.Description</div>
+                        </div>
+
+
+                        
+                    }
+                     
+                }
+            </div>
+
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; max-width: 50%;" id="carouselExample" class="carousel">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < ViewBag.Product.Images?.Count; i++)
+                    {
+                        <div class="carousel-item @(i == 0 ? "active" : null)">
+                            <div style="max-width: 100%; overflow: hidden;">
+                                <img src="@ViewBag.Product.Images[i]" class="d-block w-100" alt="Image">
+                            </div>
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div  style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: white; margin-top: 20em;">
+                            This product haven't any Details Description
+                        </div>
+    }
+     
+     
+    
+     
+}
+<div  style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: white; margin-top: 1em;">
+        <a href="~/Home/Index">Go Back</a>
+                            </div>
+
+
+ 

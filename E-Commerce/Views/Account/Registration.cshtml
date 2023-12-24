@@ -1,0 +1,40 @@
+﻿@using ECommerce.Models.IdentityModels;
+@model RegistrationDTO
+
+<div style="display: flex; flex-direction: column; align-items: center;">
+    <h3 class="text-light" style="margin-top:20px; margin-bottom:15px"><i class="fa-solid fa-address-card fa-xl"></i></h3>
+    <h4 class="text-light"  >Registration Page</h4>
+    @if (ViewData.ModelState["IdentityErrors"]?.Errors.Count > 0)
+    {
+        <span class="text-danger">@ViewData.ModelState["IdentityErrors"].Errors[0].ErrorMessage</span>
+    }
+</div>
+
+<form   asp-action="Registration" method="post" class="login-form">
+    <div class="mb-3 text-light">
+        <label for="UserName" class="form-label">User Name</label>
+        <input asp-for="UserName" type="text" class="form-control" id="UserName">
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="mb-3 text-light">
+        <label for="Email" class="form-label">Email adress</label>
+        <input asp-for="Email" type="email" class="form-control" id="Email" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+         <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3 text-light">
+        <label for="Password" class="form-label">Password</label>
+        <input asp-for="Password" type="password" class="form-control" id="Password" aria-describedby="passHelp">
+        <div id="passHelp" class="form-text">We'll never share your password with anyone else.</div>
+         <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="mb-3 text-light">
+        <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+        <input asp-for="ConfirmPassword" type="password" class="form-control" id="ConfirmPassword">
+          <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a style="  margin-left:20px; margin-top: 10px" href="~/Account/Login">Already have an account? You should complete login!</a>
+
+</form>

@@ -1,0 +1,91 @@
+﻿@using ECommerce.Models.Home.ProductDTO;
+ 
+@model ProductEditDTO
+
+
+<div class="container">
+    <form class="form-add-product" asp-action="EditProduct" asp-controller="Product" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ProductId" />
+       @* <input type="hidden" asp-for="ImageByte" /> *@
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name Product</label>
+            <input type="text" asp-for="Name" class="form-control" id="Name" placeholder="Laptop">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <label style="color:white; padding-right:300px" for="select" class="form-label">Caregories:</label>
+        <select id="select" asp-for="CategoryId" class="form-select mb-2" aria-label="Default select example">
+            @foreach (var category in ViewBag.Categories)
+            {
+                if (Model.CategoryId == category.CategoryId)
+                {
+                    <option value="@category.CategoryId" selected>@category.CategoryName</option>
+                }
+                else
+                {
+                    <option value="@category.CategoryId">@category.CategoryName</option>
+                }
+            }
+        </select>
+
+        <span asp-validation-for="CategoryId" class="text-danger"> </span>
+
+        <div class="mb-3">
+            <label for="Price" class="form-label">Price</label>
+            <input type="number" asp-for="Price" class="form-control" id="Price" min="1" placeholder="$0" aria-describedby="helpPrice">
+            <div id="helpPrice" class="form-text">
+                Write positive Price
+            </div>
+            <span asp-validation-for="Price" class="text-danger"> </span>
+
+
+        </div>
+        <div class="mb-3">
+            <label for="ShortDescription" class="form-label">ShortDescription</label>
+            <textarea asp-for="ShortDescription" class="form-control" id="ShortDescription" rows="2" aria-describedby="helpShortDescription"></textarea>
+            <div id="helpShortDescription" class="form-text">
+               Minimum 10, maximun - 100
+            </div>
+            <span asp-validation-for="ShortDescription" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Add image</label>
+            <input class="form-control" asp-for="ImageFiles" type="file" id="image" multiple>
+        </div>
+        <div class="mb-3">
+                   <input class="form-check-input" type="checkbox" asp-for="DeleteAllImages" id="flexCheckDefault">
+                             <label class="form-check-label" for="flexCheckDefault">
+                                 Delete All Images
+                                 </label>
+                </div>
+         
+        <div   class="d-flex justify-content-center align-content-center w-25">
+           
+                  <div id="carouselExample" class="carousel ">
+                         <div class="carousel-inner">
+                             @for (int i = 0; i < Model.Images?.Count; i++)
+                             {
+                                 <div class="carousel-item @(i==0?"active":null) ">
+                                     <img src="@Model.Images[i]" class="d-block w-100" alt="Image">
+                                 </div>
+                                                    
+                             }
+                         </div>
+                         <button   class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                             <span class="visually-hidden">Previous</span>
+                         </button>
+                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                             <span class="visually-hidden">Next</span>
+                         </button>
+                     </div>
+              
+        </div>
+       
+        <span style="display: flex; justify-content: center; align-items: center; margin-top: 40px">
+                             
+            <button style="margin-right:15px;" type="submit" class="btn btn-warning">Edit</button>
+            <a class="btn btn-primary " href="~/Product/GetAllProducts">Go Back</a>
+            </span>
+    </form>
+</div>

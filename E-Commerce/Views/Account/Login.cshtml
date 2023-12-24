@@ -1,0 +1,35 @@
+﻿@using ECommerce.Models.IdentityModels;
+@model LoginDTO
+
+<div style="display: flex; flex-direction: column; align-items: center;">
+    <h3 class="text-light" style="margin-top:30px; margin-bottom:15px"><i class="fa-solid fa-right-to-bracket fa-xl"></i></h3>
+    <h4 class="text-light" style="margin-bottom:50px">Login Page</h4>
+    <h5 class="text-light"><a href="Registration">Haven't account? You shoud complite registration!</a></h5>
+    
+     
+</div>
+
+
+<form asp-action="Login" method="post" class="login-form">
+    <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl"/>
+    <div class="mb-3 text-light">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input asp-for="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3 text-light">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input asp-for="Password" type="password" class="form-control" id="exampleInputPassword1" aria-describedby="passHelp">
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <div id="passHelp" class="form-text"><a style="margin-top:5px" href="~/Account/ForgotPassword">Forgout password?</a></div>
+    </div>
+
+
+
+    <div class="mb-3 form-check text-light">
+        <input asp-for="Remember" type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

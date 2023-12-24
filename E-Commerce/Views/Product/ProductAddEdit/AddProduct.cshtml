@@ -1,0 +1,64 @@
+﻿@using ECommerce.Models.Home.ProductDTO;
+ 
+@model ProductAddDTO
+
+<div class="container">
+    <form class="form-add-product" asp-action="AddProduct" asp-controller="Product" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name Product</label>
+            <input type="text" asp-for="Name" class="form-control" id="Name" placeholder="Laptop">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <select asp-for="CategoryId" class="form-select" aria-label="Default select example">
+            <option selected>Choose category</option>
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.CategoryId">@category.CategoryName</option>
+            }
+             
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"> </span>
+         
+        <div class="mb-3">
+            <label for="Price" class="form-label">Price</label>
+            <input type="number" asp-for="Price" class="form-control" id="Price" placeholder="$0" aria-describedby="helpPrice">
+            <div id="helpPrice" class="form-text">
+                Write positive Price
+            </div>
+            <span asp-validation-for="Price" class="text-danger"> </span>
+
+
+        </div>
+        <div class="mb-3">
+            <label for="ShortDescription" class="form-label">ShortDescription</label>
+            <textarea asp-for="ShortDescription" class="form-control" id="ShortDescription" rows="2"></textarea>
+            <span asp-validation-for="ShortDescription" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Add image</label>
+            <input class="form-control" asp-for="ImageFiles" type="file" id="image" multiple>
+            @if (ViewData.ModelState["imageError"]?.Errors != null)
+            {
+                foreach (var error in ViewData.ModelState["imageError"].Errors)
+                {
+                    <span class="text-danger">@error.ErrorMessage</span>
+                }
+                 
+            }
+           @if (ViewData.ModelState["maxImageError"]?.Errors != null)
+           {
+               foreach (var error in ViewData.ModelState["maxImageError"].Errors)
+               {
+                   <span class="text-danger">@error.ErrorMessage</span>
+               }
+           }
+            
+        </div>
+         
+         <span style="display: flex; justify-content: center; align-items: center; margin-top: 40px">
+                     
+                       <button style="margin-right:15px;" type="submit" class="btn btn-warning">Create</button>
+                            <a class="btn btn-primary " href="~/Product/GetAllProducts">Go Back</a>
+                    </span>
+   </form>
+</div>

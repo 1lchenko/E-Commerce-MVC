@@ -1,0 +1,97 @@
+﻿@using ECommerce.Models.Home.ProductDTO;
+ 
+ 
+ @model ECommerce.Models.Home.ProductsPageViewModel
+
+<div class="card-container">
+    
+
+  
+    @{
+         
+        foreach (var item in Model.Products)
+        {
+
+            <div class="card" style="width: 20rem; height:35rem;">
+               
+                 @if (item.Images.Count > 0)
+                 {
+                     <img src="@item.Images[0]"/>
+                 }
+                   
+                
+                  
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.ShortDescription</p>
+                    <p class="card-text">Price = $@item.Price</p>
+                    <div style="display: flex; justify-content: space-between">
+                        <a class="btn btn-info" href='@($"/Home/ReadDescriptions?productId={item.ProductId}")'>Read More</a>
+                        <button onclick="add(@item.ProductId,@item.Price,'@item.Name')" class="btn btn-success">Add to Cart</button>
+
+                    </div>
+                </div>
+                </div>
+            
+        }
+    }
+
+</div>
+   
+ 
+<nav class="pagination-container" aria-label="Page navigation example">
+    <ul class="pagination">
+
+        @{
+
+            if (Model.PaginationInfo.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="~/Home/Index?page=@(Model.PaginationInfo.PageNumber-1)&searchText=@ViewBag.searchText&CategoryId=@ViewBag.CategoryId">Previous Page</a>
+                </li>
+            }
+            if (Model.PaginationInfo.HasNextPage)
+            {
+
+                <li class="page-item"><a class="page-link" href="~/Home/Index?page=@(Model.PaginationInfo.PageNumber+1)&searchText=@ViewBag.searchText&CategoryId=@ViewBag.CategoryId">Next Page</a></li>
+            }
+
+
+        }
+
+
+
+    </ul>
+</nav>
+
+<script>
+    async function add(productId, amount, productName) {
+        console.log(productId);
+        try {
+            var response = await fetch(`/Home/SaveToSession`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId: productId, amount: amount, productName: productName })
+            });
+
+            if (response.status == 401) {
+                window.location.href = "/Identity/Account/Login";
+                return;
+            }
+            else if (response.status == 200) {
+                console.log("Status == 200");
+            }
+            else {
+                console.log("function add(productId) is not working");
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+</script>
+
+
+

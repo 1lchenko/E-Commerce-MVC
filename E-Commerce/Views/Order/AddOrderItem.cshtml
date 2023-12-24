@@ -1,0 +1,40 @@
+﻿@*@model OrderItem
+
+
+<div style="display: flex; justify-content:center; align-items: center;">
+    <h4 class="text-light" style="margin-bottom:50px; margin-top:25px">Add item to Order</h4>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    foreach (var modelState in ViewData.ModelState.Values)
+    {
+        foreach (var error in modelState.Errors)
+        {
+            <p class="alert alert-danger">@error.ErrorMessage</p>
+        }
+    }
+}
+
+ 
+<form style="display:flex; justify-content:center; align-items:center; flex-direction:column" class="control-form" asp-action="AddOrderItem" method="post">
+
+    <input type="hidden" asp-for="OrderId"/>
+
+    <div class="mb-3 text-light">
+        <label for="ProductName" class="form-label">Product Name(write full name or first 10 symbols!</label>
+        <input asp-for="ProductName" type="text" class="form-control" id="ProductName">
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+    <div class="mb-3 text-light">
+        <label for="Quantity" class="form-label">Quantity</label>
+        <input asp-for="Quantity" type="number" class="form-control" id="Quantity">
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+   
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<a style="display: flex; justify-content: center; align-items: center; margin-top: 40px" href="~/@($"Account/Control?orderNumber={Model.OrderId}")">Go Back</a> 
+*@
+ 
+

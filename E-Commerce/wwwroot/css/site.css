@@ -1,0 +1,281 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+
+}
+
+/*Home*/
+
+
+ 
+.card-container {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap:50px;
+    margin-top:40px;
+     
+  
+    
+    
+ 
+}
+ 
+ 
+ 
+
+/*Cart*/
+.cart-i:hover {
+    transform: scale(1.1); 
+}
+.cart-i {
+    margin: 10px;
+    align-content: center;
+}
+/* ��� ��������� �������� ������ */
+ol.list-group {
+    background-color: white; /* �������� "���_����_����" �� ������ ���� */
+}
+
+    /* ��� ��������� ������ */
+    ol.list-group > li.list-group-item {
+        background-color: white; /* �������� "���_����_����" �� ������ ���� */
+        border-color: #258cfb; /* ������� �������, ����� �� ���� �� �����, ��� � ��� */
+    }
+
+.list-group {
+    margin: 1px;
+}
+
+
+
+
+/*Login*/
+
+.login-form {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding-top:20px;
+}
+
+/*Order*/
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* this takes the full viewport height */
+    position: relative; /* make sure it's relative if you want other content to flow naturally */
+}
+
+/*Control*/
+ 
+
+
+/*Add Item*/
+.add-product-container{
+    
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+}
+.form-add-product {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.mb-3 {
+    color:white !important;
+    width:30%;
+}
+.form-select {
+     
+    width: 30%;
+}
+
+/*GET ALL PRODUCTS*/
+.container-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top:15px;
+}
+
+
+.card-allproduct-cont {
+    margin-top: 15px;
+    display: flex;
+    justify-content: start;
+    gap: 15px;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+     
+}
+
+.container-button {
+    margin-top: auto; /* ��� ������������� �������� ������ � ������ ����� ���������� .card-body, ���������� �� ������� ����������� ���� */
+}
+.container-button {
+    margin-top: auto; /* ��� ������������� �������� ������ � ������ ����� ���������� .card-body, ���������� �� ������� ����������� ���� */
+}
+
+
+/*ALL PRODUCTS*/
+.card-container2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+    width: 100%  ;
+    
+}
+
+.card-flex {
+    display: flex;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex-basis: 500px;
+    min-width: 479px;
+    max-width: 479px;
+    min-height: 400px;
+    max-height: 400px;
+    flex: 1;
+    color: white;
+    background-color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
+}
+
+    .left-side img {
+        width: 200px;
+    }
+
+.flex-button {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.left-side button {
+     
+    border-radius: 10px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top:15px;
+
+    
+}
+
+    .left-side button:hover {
+        background-color: #0056b3;
+    }
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+   justify-content:space-around;
+    flex: 1;
+}
+
+.description-flex {
+    display: flex;
+    gap: 15px;
+}
+
+ 
+
+/*GetAllCategories*/
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    margin-top:15px;
+ 
+    
+}
+.table{
+    width:20%;
+     
+}
+.button-cont{
+    display:flex;
+    justify-content:center;
+    height:55.5px;
+    gap:10px;
+}
+     
+
+/*Edit Order*/
+
+.container-edit-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+}
+
+
+/*Pagination*/
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: 50px;
+    margin-bottom: -20px;
+     
+}
+.pagination   {
+    display: flex;
+    gap: 40px;
+}

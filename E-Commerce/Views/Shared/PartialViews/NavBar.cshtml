@@ -1,0 +1,60 @@
+﻿ 
+
+<nav class="navbar navbar-expand-lg bg-black">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="~/Home/Index?isHome=true">E-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="~/Home/Index?isHome=true">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           All Categories
+                        </a>
+                        @await Component.InvokeAsync("Category")
+
+                    </li>
+                  
+                </ul>
+               <a style="margin-right: 60px; text-decoration: none; color: inherit;" href="/Cart/Cart">
+                   <i style="color: #d4ff00;" class="fa-solid fa-cart-shopping fa-2xl"></i>
+               </a>
+
+                <form class="d-flex" asp-action="Index" asp-controller="Home" style="margin-right:60px">
+                    <input class="form-control me-2" type="search" placeholder="Search Item" name="searchText">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="dropdown navbar-brand" style="margin-right:70px">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Actions
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Account/Manage">Personal Cabinet</a></li>
+                            <li><a class="dropdown-item" href="/Account/Settings">Settings</a></li>
+
+                            @if (User.IsInRole("Admin")) 
+                            {
+                                <li><a class="dropdown-item" href="/Account/Control">Control</a></li>
+                                <li><a class="dropdown-item" href="/Product/GetAllProducts">All Products</a></li>
+                                <li><a class="dropdown-item" href="/Category/GetAllCategories">All Categories</a></li>
+                            }
+
+                            <li><a class="dropdown-item" href="/Account/LogOut">Log out</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <a style="margin-left:50px" class="navbar-brand" href="/Account/Login">Login</a>
+                }
+
+
+            </div>
+        </div>
+    </nav>

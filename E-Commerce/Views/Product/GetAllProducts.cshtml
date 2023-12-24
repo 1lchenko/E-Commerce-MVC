@@ -1,0 +1,101 @@
+﻿@using ECommerce.Models.Home;
+@model ProductsPageViewModel
+
+
+<div style="display:flex; align-items:center; justify-content:center">
+    <div class="mb-3 mt-5" style="display:flex; justify-content:center; align-items:center; width:100%;  flex:2; margin-left:25em">
+        <form style="display:flex; justify-content:space-around; align-items:center; flex-direction:column" action="GetAllProducts" method="get">
+            <input type="text" name="searchText" class="form-control" id="exampleFormControlInput1" placeholder="Product Name">
+            <button type="submit" class="btn btn-primary mt-4">Search</button>
+        </form>
+
+
+    </div>
+    <div style="display:flex; margin-top:15px; margin-right:10px; justify-content:flex-end;width: 100%;align-items:center; flex:1">
+        <a class="nav-link active btn-success btn " style="margin-right:10px" aria-current="page" href="~/Product/AddProduct">+ Add New Product</a>
+    </div>
+</div>
+
+
+<div class="card-container2">
+
+
+   @foreach (var item in Model.Products)
+    {
+        <div class="card-flex">
+            <div class="left-side">
+                
+                @if (item.Images!.Count > 0)
+                {
+                    <img src="@item.Images[0]"/>
+                }
+                
+                <div class="flex-button">
+                    <form asp-action="EditProduct" method="get">
+                        <input type="hidden" name="productId" value="@item.ProductId"/>
+                        <input type="hidden" name="searchText" value="@ViewBag.searchText" />
+                        <button style="background-color:orange">Edit Product</button>
+                    </form>
+                    <form asp-action="DeleteProduct" method="post">
+                         
+                        <input type="hidden" name="searchText" value="@ViewBag.searchText" />
+                        <input type="hidden" name="productId" value="@item.ProductId" />
+                        <button style="background-color:red">Delete Product</button>
+                    </form>
+                    <form asp-action="AddDetailsDescription" method="get">
+                                             
+                        <input type="hidden" name="searchText" value="@ViewBag.searchText" />
+                        <input type="hidden" name="productId" value="@item.ProductId" />
+                        <button style="background-color:#1a653f">Add Details Desctiptions</button>
+                       
+                    </form>
+                    <form asp-action="EditProductDetail" method="get">
+                                                                 
+                        <input type="hidden" name="searchText" value="@ViewBag.searchText" />
+                        <input type="hidden" name="productId" value="@item.ProductId" />
+                        <button style="background-color:orange">Edit Details Desctiptions</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="right-side">
+                <p>@item.Name</p>
+                <div class="description-flex">
+                    
+                    <p>@item.ShortDescription</p>
+                </div>
+                <div class="description-flex">
+                    
+                    <p>@item.CategoryName</p>
+                </div>
+                
+                <p>$@item.Price</p>
+            </div>
+        </div>
+    }
+</div>
+
+<nav class="pagination-container" aria-label="Page navigation example">
+    <ul class="pagination">
+
+        @{
+
+            if (Model.PaginationInfo.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="~/CategoryProductManagement/GetAllProducts?page=@(Model.PaginationInfo.PageNumber-1)&searchText=@ViewBag.searchText">Previous Page</a>
+                </li>
+            }
+            if (Model.PaginationInfo.HasNextPage)
+            {
+
+                <li class="page-item"><a class="page-link" href="~/CategoryProductManagement/GetAllProducts?page=@(Model.PaginationInfo.PageNumber+1)&searchText=@ViewBag.searchText">Next Page</a></li>
+            }
+
+
+        }
+
+
+
+    </ul>
+</nav>

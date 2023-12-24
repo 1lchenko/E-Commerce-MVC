@@ -1,0 +1,179 @@
+﻿@model List<ProductDetail>
+
+ 
+
+ 
+<div class="container">
+    
+    @if (ViewData.ModelState.Count > 0)
+    {
+        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top:10px">
+            
+            @foreach (var key in ViewData.ModelState.Keys)
+            {
+                @foreach (var error in ViewData.ModelState[key].Errors)
+                {
+                    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column">
+                        <span class="text-danger">@error.ErrorMessage</span>
+                    </div>
+                    
+
+                }
+                
+               
+            }
+        </div>
+    }
+
+    <form id="form" class="form-add-product" asp-action="AddDetailsDescription"  asp-controller="Product" method="post">
+        @{
+            @if (Model.Count() == 0)
+            {
+                <input type="hidden" name="productDetails[0].ProductId" value="@ViewBag.Product.ProductId"/>
+                <input type="hidden" name="productDetails[0].ProductDetailId" value="0"/>
+                <div class="mb-3">
+                    <label for="productDetails[0].Title" class="form-label">Title</label>
+                    <input type="text" name="productDetails[0].Title" class="form-control" id="productDetails[0].Title" placeholder="Title">
+                </div>
+                <div class="mb-3">
+                    <label for="productDetails[0].Description" class="form-label">Description</label>
+                    <input type="text" name="productDetails[0].Description" class="form-control" id="productDetails[0].Description" placeholder="Description">
+                </div>
+                
+                
+
+
+            }
+
+
+            else
+            {
+                int index = 0;
+                foreach (var product in Model)
+                {
+                    <div id="@index">
+                        <input type="hidden" name="productDetails[@index].ProductId" value="@ViewBag.Product.ProductId"/>
+                        <input type="hidden" name="productDetails[@index].ProductDetailId" value="0"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Title" class="form-label">Title</label>
+                        <input type="text" name="productDetails[@index].Title" value="@product.Title" class="form-control" placeholder="Title" id="Title">
+                        <span asp-validation-for="@product.Title" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">Description</label>
+                        <input type="text" name="productDetails[@index].Description" value="@product.Description" class="form-control" placeholder="Description" id="Description">
+                        <span asp-validation-for="@product.Description" class="text-danger"></span>
+                    </div>
+                    
+                    index++;
+                }
+
+            }
+        }
+ 
+        
+    </form>
+    
+     <span style="display: flex; justify-content: center; align-items: center; margin-top: 40px">
+                                             
+                <button style="margin-right:15px;" form="form" type="submit" class="btn btn-warning">Create</button>
+                <a class="btn btn-primary " href="~/Product/GetAllProducts">Go Back</a>
+            </span>
+    
+
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 15px">
+        <button style="margin-top:15px" onclick="addMore()" class="btn btn-primary">Add one more Field for Description</button>
+        <button style="margin-top:15px" onclick="removeLast()" class="btn btn-danger">Remove last Field</button>
+    </div>
+
+</div>
+
+<script>
+    let index = @Model.Count() + 1; // Начальный индекс
+
+    function addMore() {
+        const container = document.querySelector('.form-add-product');
+        const fieldContainer = document.createElement('div');
+        fieldContainer.id = index;
+        fieldContainer.style.display = 'flex'; 
+        fieldContainer.style.marginTop = '15px';
+        fieldContainer.style.flexDirection = 'column';
+        fieldContainer.className = 'mb-3';  
+
+        const productIdInput = createHiddenInput(`productDetails[${index}].ProductId`, '@ViewBag.Product.ProductId');
+        const productDetailIdInput = createHiddenInput(`productDetails[${index}].ProductDetailId`, '0');
+
+        const titleLabel = createLabel(`productDetails[${index}].Title`, 'Title');
+        const titleInput = createTextInput(`productDetails[${index}].Title`, '', 'productDetails[${index}].Title', 'Title');
+        const titleValidation = createValidationSpan(`productDetails[${index}].Title`);
+
+        const descriptionLabel = createLabel(`productDetails[${index}].Description`, 'Description');
+        descriptionLabel.style.marginTop = '10px';
+        const descriptionInput = createTextInput(`productDetails[${index}].Description`, '', 'productDetails[${index}].Description', 'Description');
+        const descriptionValidation = createValidationSpan(`productDetails[${index}].Description`);
+
+        const hr = document.createElement('hr');
+
+        fieldContainer.appendChild(hr);
+        fieldContainer.appendChild(productIdInput);
+        fieldContainer.appendChild(productDetailIdInput);
+        fieldContainer.appendChild(titleLabel);
+        fieldContainer.appendChild(titleInput);
+        fieldContainer.appendChild(titleValidation);
+        fieldContainer.appendChild(descriptionLabel);
+        fieldContainer.appendChild(descriptionInput);
+        fieldContainer.appendChild(descriptionValidation);
+     
+
+        container.appendChild(fieldContainer);
+
+        index++;
+    }
+
+    
+
+    function removeLast() {
+        if (index > 0) {
+            const container = document.querySelector('.form-add-product');
+            const lastField = document.getElementById(index - 1);
+            container.removeChild(lastField);
+            index--;
+        }
+    }
+
+    function createHiddenInput(name, value) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        return input;
+    }
+
+    function createLabel(forName, labelText) {
+        const label = document.createElement('label');
+        label.htmlFor = forName;
+        label.textContent = labelText;
+        label.style.marginBottom = '1px'; // Добавляем отступ снизу к меткам
+        return label;
+    }
+
+    function createTextInput(name, value, id, placeholder) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = name;
+        input.value = value;
+        input.className = 'form-control';
+        input.id = id;
+        input.placeholder = placeholder; // Добавляем атрибут placeholder
+        return input;
+    }
+
+    function createValidationSpan(aspValidationFor) {
+        const span = document.createElement('span');
+        span.setAttribute('asp-validation-for', aspValidationFor);
+        span.className = 'text-danger';
+        return span;
+    }
+</script>

@@ -1,0 +1,132 @@
+﻿@model Order
+
+
+<form asp-controller="Account" asp-action="Control" method="post" style="display:flex; text-align:center;width: 100%; justify-content:center; margin-top:100px">
+    <input type="number" class="form-control w-25" name="orderNumber" placeholder="Enter order number" />
+    <button type="submit" class="btn btn-primary mx-2" >Search</button>
+</form>                     
+
+ 
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="display: flex; align-items: center; justify-content: center"> 
+    
+            @if (ViewData.ModelState.ContainsKey("OrderNotFound"))
+            {
+                foreach (var error in ViewData.ModelState["OrderNotFound"].Errors)
+                {
+                    <p style="text-align: center;  " class="alert alert-danger mt-5">@error.ErrorMessage</p>
+                }
+            }
+   </div>
+      
+}
+
+
+@{
+    if (Model != null)
+    {
+         
+       
+         
+         
+        <div style="margin-top:55px" class="container text-center text-light">
+            <!-- Header Row -->
+
+            <div style="padding-bottom:15px;padding-top:5px" class="  text-center text-light border border-black">
+                <div class="row">
+                    <div class="col">Order number</div>
+                    <div class="col">Order Total Price</div>
+                    <div class="col">Order Adress</div>
+                    <div class="col">Order Date</div>
+                    <div class="col">Phone Number</div>
+                    <div class="col">User's Comment</div>
+                    <div class="col">Order Status</div>
+                    <div class="col">Actions</div>
+                </div>
+
+                 
+                    
+                        <hr />
+                        <div class="row">
+                            <!-- Data Rows - removed the extra container div -->
+
+                            <div class="col">@Model.OrderId</div>
+                            <div class="col">@Model.TotalPrice</div>
+                            <div class="col">@Model.Adress</div>
+                            <div class="col">@Model.OrderDate</div>
+                            <div class="col">@Model.PhoneNumber</div>
+                            <div class="col">@Model.Comment</div>
+                            <div class="col">@Model.Status</div>
+                            <div  class="col">
+                            <div style="display: flex; flex-direction:row; justify-content:center">
+                                <form id="myForm" asp-action="DeleteOrder" asp-controller="Order" method="post">
+                                    <input type="hidden" name="orderId" value="@Model.OrderId"/>
+                                    <button onclick="sure()" type="submit" class="btn    "><i class="fa-solid fa-trash fa-lg" style="color: #ff0a2f;"></i></button>
+                                </form>
+                            <div>
+                                <a href="@($"../Order/EditOrder/{Model.OrderId}")" class="btn "><i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffa200;"></i></a>
+                            </div>
+                            
+                            </div>
+                         
+                            </div>
+                        </div>
+
+                    
+
+ 
+
+            </div>
+
+
+
+
+        </div>
+        <div style="color: white; display:flex; justify-content:center; align-items:center; margin-top:15px">Order Items:</div>
+
+
+
+        <div style="padding-bottom:15px;padding-top:5px; width:30%; margin-top:10px" class="container  text-center text-light border border-black">
+            <div class="row">
+                <div class="col">Name</div>
+                <div class="col">Total amount</div>
+            </div>
+
+
+            @{
+                foreach (var item in Model.OrderItems)
+                {
+                    <hr />
+                    <div class="row">
+                        <!-- Data Rows - removed the extra container div -->
+
+                        <div class="col">@item.ProductName</div>
+                        <div class="col">@(item.AmountForOne * item.Quantity)</div>
+
+                    </div>
+                }
+            }
+
+        </div>
+    }
+}
+
+<script>
+
+function sure(){
+
+        document.getElementById("myForm").addEventListener("submit", function (event) {
+            var result = confirm("Are you sure?");
+            if (!result) {
+                
+                event.preventDefault();
+            }
+          
+        });
+
+
+}
+
+</script>

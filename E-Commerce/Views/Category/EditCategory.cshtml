@@ -1,0 +1,22 @@
+﻿@using ECommerce.Models.Home;
+@model Category
+
+
+<div class="container">
+    <form class="form-add-product" asp-action="EditCategory" asp-controller="Category" method="post"  >
+        <input type="hidden" asp-for="CategoryId" />
+        
+        <div class="mb-3">
+            <label for="Name" class="form-label">Category Name</label>
+            <input type="text" asp-for="CategoryName" class="form-control" id="Name">
+            <span asp-validation-for="CategoryName" class="text-danger"></span>
+        </div>
+         
+    
+         <span style="display: flex; justify-content: center; align-items: center; margin-top: 40px">
+                                     
+                                       <button style="margin-right:15px;" type="submit" class="btn btn-warning">Edit</button>
+                                            <a class="btn btn-primary " href="~/Category/GetAllCategories">Go Back</a>
+                                    </span>
+    </form>
+</div>

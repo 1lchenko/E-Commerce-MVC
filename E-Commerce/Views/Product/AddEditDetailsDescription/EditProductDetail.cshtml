@@ -1,0 +1,110 @@
+﻿@model List<ProductDetail>
+
+@if (ViewData.ModelState.Count > 0)
+{
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 10px">
+        @foreach (var key in ViewData.ModelState.Keys)
+        {
+            @foreach (var error in ViewData.ModelState[key].Errors)
+            {
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column">
+                    <span class="text-danger">@error.ErrorMessage</span>
+                </div>
+            }
+        }
+    </div>
+}
+@{
+    if (Model.Count() != 0)
+    {
+        
+<div style="margin-top: 55px" class="container text-center text-light">
+    <div style="padding-bottom: 15px; padding-top: 5px" class="container text-center text-light border border-black">
+        <div class="row">
+            <div class="col">
+                Title
+            </div>
+            <div class="col">
+                Description
+            </div>
+            <div class="col">
+                Actions
+            </div>
+            
+        </div>
+
+        @{
+            foreach (var cartItem in Model)
+            {
+                <hr />
+                <form asp-action="EditProductDetail" method="post" id="editForm_@cartItem.ProductDetailId">
+                    <div class="row">
+                        <div class="col"><input value="@cartItem.Title" name="Title"/></div>
+                        <div class="col"><input value="@cartItem.Description" name="Description" /></div>
+                        <input type="hidden" value="@cartItem.ProductId" name="ProductId"/>
+                        <input type="hidden" value="@cartItem.ProductDetailId" name="ProductDetailId"/>
+                        <div class="col">
+                            <div style="display: flex; justify-content: center">
+                                <div style="display: flex; flex-direction: row; justify-content: center; margin-right: 6px">
+                                    <button class="btn-warning btn" style="color: #ffffff;">Edit</button>
+                                </div>
+                                <div style="display: flex; flex-direction: row; justify-content: center">
+                                 
+                                    <button onclick="remove(@cartItem.ProductDetailId,@cartItem.ProductId)" 
+                                            type='button' class="btn-danger btn" style="color: #ffffff;">Delete</button>
+
+                                 
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </form>
+            }
+        }
+    </div>
+     
+</div>
+    }
+    else
+    {
+        <div  style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: white; margin-top: 20em;">
+                            This product haven't any Details Description
+                        </div>
+    }
+}
+<div  style="display: flex; justify-content: center; align-items: center; flex-direction: column; color: white; margin-top: 20em;">
+        <a href="~/Product/GetAllProducts">Go Back</a>
+                            </div>
+
+
+<script>
+    async function remove(productDetailId,productId) {
+            console.log(productDetailId);
+            try {
+                var response = await fetch(`/CategoryProductManagement/DeleteProductDetail?productDetailId=${productDetailId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    
+                });
+    
+                if (response.status == 404) {
+                                    console.log("Status == 404");
+                                    location.reload();
+                                }
+                  if (response.status == 200) {
+                    console.log("Status == 200");
+                    window.location.href = `/CategoryProductManagement/EditProductDetail?productId=${productId}`;
+                }
+                else {
+                    console.log("function remove(productId) is not working");
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+    }
+    </script>

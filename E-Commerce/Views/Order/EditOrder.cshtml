@@ -1,0 +1,103 @@
+﻿@model ECommerce.Models.Order
+
+<h3 style="text-align:center;margin-top:20px;margin-bottom:-20px" class="text-light">Edit order:</h3>
+
+
+<form style="margin-top:30px" class="container-edit-form" asp-controller="Order" asp-action="EditOrder" method="post">
+    <!-- Add a hidden input for OrderId if you want to edit an existing order -->
+    <input asp-for="OrderId" type="hidden" />
+    <input asp-for="OrderDate" type="hidden" />
+    <input asp-for="UserId" type="hidden" />
+
+    <!-- Field for Adress -->
+    <div class="mb-3 text-light">
+        <label asp-for="Adress" class="form-label"></label>
+        <input asp-for="Adress" class="form-control" />
+        <span asp-validation-for="Adress" class="text-danger"></span>
+    </div>
+
+    <!-- Field for PhoneNumber -->
+    <div class="mb-3 text-light">
+        <label class="form-label">Введите номер телефона в формате +380 хх ххх хх хх</label>
+        <input asp-for="PhoneNumber" class="form-control"   />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+ 
+
+    <label style="color:white;  " for="Status" class="form-label mb-3">Status:</label>
+    <select id="Status" asp-for="Status" class="form-select mb-2" aria-label="Status">
+        @foreach (var status in ViewBag.StatusOrder)
+        {
+            var stringStatus = status.ToString();
+            if (Model.Status == stringStatus)
+            {
+                <option value="@stringStatus" selected>@stringStatus</option>
+            }
+            else
+            {
+                <option value="@stringStatus">@stringStatus</option>
+            }
+        }
+    </select>
+
+    <span asp-validation-for="Status" class="text-danger"> </span>
+
+    <!-- Field for Comment -->
+    <div class="mb-3 text-light">
+        <label asp-for="Comment" class="form-label"></label>
+        <input asp-for="Comment" class="form-control" />
+    </div>
+    
+    <!-- Order Items: -->
+
+
+    <h3 style="text-align:center; margin-top:20px" class="text-light">Edit order items:</h3>
+
+    @for (int i = 0; i < Model.OrderItems.Count; i++)
+    {
+        <input asp-for="OrderItems[i].OrderItemId" type="hidden" />
+        <input asp-for="OrderItems[i].ProductId" type="hidden" />
+        <input asp-for="OrderItems[i].AmountForOne" type="hidden" />
+        <input asp-for="OrderItems[i].OrderId" type="hidden" />
+
+        <!-- Field for ProductName -->
+        <div class="mb-3 text-light">
+            <label asp-for="OrderItems[i].ProductName" class="form-label"></label>
+            <input readonly asp-for="OrderItems[i].ProductName" class="form-control" />
+        </div>
+
+        <!-- Hidden Field for OrderId -->
+        <input asp-for="OrderId" type="hidden" />
+
+        <!-- Field for Quantity -->
+        <div class="mb-3 text-light">
+            <label asp-for="OrderItems[i].Quantity" class="form-label">Write 0 to delete</label>
+            <input asp-for="OrderItems[i].Quantity" class="form-control" max="99" min="0" />
+            <span asp-validation-for="OrderItems[i].Quantity" class="text-danger"></span>
+        </div>
+        <hr />
+
+    }
+ 
+
+
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+
+        @if (ViewData.ModelState.ContainsKey("OrderItemsIsEmpty"))
+        {
+            foreach (var error in ViewData.ModelState["OrderItemsIsEmpty"].Errors)
+            {
+                <p class="alert alert-danger">@error.ErrorMessage</p>
+            }
+        }
+
+    }
+    <span style="display: flex; justify-content: center; align-items: center; margin-top: 40px">
+        <button style="margin-right:15px;" type="submit" class="btn btn-warning ">Edit</button>
+            <a class="btn btn-primary " href="~/@($"Account/Control?orderNumber={Model.OrderId}")">Go Back</a>
+    </span>
+     
+     
+</form>

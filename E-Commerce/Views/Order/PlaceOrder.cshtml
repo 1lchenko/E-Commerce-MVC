@@ -1,0 +1,47 @@
+﻿ @model OrderAddDTO
+
+<div style="display: flex; flex-direction: column; align-items: center;">
+    <h3 class="text-light" style="margin-top:30px; margin-bottom:15px"><i class="fa-solid fa-truck fa-xl"></i></h3>
+    <h4 class="text-light" style="margin-bottom:50px">Place Order Page</h4>
+</div>
+
+ <form asp-action="PlaceOrder" asp- method="post" style="display:flex; justify-content:center; align-items:center; flex-direction:column">
+     <div class="mb-3 text-light">
+         <label for="Adress" class="form-label">Adress</label>
+         <input asp-for="Adress" type="text" class="form-control" id="Adress">
+         <span asp-validation-for="Adress" class="text-danger"></span>
+     </div>
+     <div class="mb-3 text-light">
+         <label for="PhoneNumber" class="form-label">PhoneNumber</label>
+         <input asp-for="PhoneNumber" type="text" class="form-control" id="PhoneNumber" placeholder="+380_________">
+         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+     </div>
+     <div class="mb-3 text-light">
+         <label for="Comment" class="form-label">Comment</label>
+         <input asp-for="Comment" type="text" class="form-control" id="Comment">
+     </div>
+
+     <div class="mb-3 text-light">
+         <label class="form-label">TotalPrice</label>
+         <input readonly type="number" name="TotalPrice" value="@ViewBag.TotalPrice" class="form-control">
+         @if (ViewBag.TotalPrice == 0)
+         {
+             <span class="text-danger">Choose product before place order!</span>
+         }
+
+     </div>
+     @{
+
+         if (ViewBag.IsConfirm)
+         {
+             <button disabled="@(ViewBag.TotalPrice == 0)" type="submit" class="btn btn-primary">Submit</button>
+         }
+         else
+         {
+             <div class="btn btn-warning">Before place order confirm your email</div>
+         }
+     }
+
+ </form>
+
+ 

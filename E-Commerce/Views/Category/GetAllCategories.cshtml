@@ -1,0 +1,40 @@
+﻿@model List<Category>
+
+    <div class="table-container">
+    <table class="table">
+        <thead>
+            <tr style="color:white">
+                <th scope="col">#</th>
+                <th scope="col">Category Name</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr style="color:white">
+                    <td>@Model[i].CategoryId</td>
+                    <td>@Model[i].CategoryName</td>
+                    <td class="button-cont">
+                        
+                        <form asp-action="EditCategory" method="get">
+                            <input type="hidden" value="@Model[i].CategoryId" name="CategoryId"/>
+                            <button class="btn btn-warning"><i class="fa-solid fa-pen-to-square fa-lg"></i></button>
+                        </form>
+                        <form asp-action="DeleteCategory" method="post">
+                            <input type="hidden" value="@Model[i].CategoryId" name="CategoryId" />
+                            <button class="btn btn-danger"><i class="fa-solid fa-trash fa-lg"></i></button>
+                        </form>
+                        
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div >
+        
+        <a class="nav-link active btn-info btn " aria-current="page" href="~/Category/AddCategory">Add New Category</a>
+    </div>
+    </div>
+ 

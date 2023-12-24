@@ -1,0 +1,162 @@
+﻿@using ECommerce.Models.Cart;
+@model List<CartDTO>
+ 
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div style="display: flex; flex-direction: column; align-items: center;margin-left:50px">
+        <h3 style="margin-top:30px; margin-bottom:15px"><i class="fa-solid fa-shop fa-xl" style="color: #2f476f;"></i></h3>
+        <h4 style="margin-bottom:50px"><a href="/">Back to Store</a></h4>
+    </div>
+    @if (Model.Count > 0)
+    {
+        <div style="display: flex; flex-direction: column; align-items: center;margin-right:50px">
+            <h3 style="margin-top:30px; margin-bottom:15px"><i class="fa-solid fa-truck fa-xl" style="color: #2f476f;"></i></h3>
+            <h4 style="margin-bottom:50px"><a href="~/Order/PlaceOrder">Go to Delivery</a></h4>
+        </div>
+    }
+</div>
+
+@{
+    if (Model.Count == 0)
+    {
+        <div class="centered">
+            <h1 style="color: aliceblue;">Your Cart is empty</h1>
+        </div>
+    }
+}
+ 
+<div style="margin-top:55px" class="container text-center text-light">
+    <!-- Header Row -->
+
+    <div style="padding-bottom:15px;padding-top:5px" class="container text-center text-light border border-black">
+        <div class="row">
+            <div class="col">
+                Product Name
+            </div>
+            <div class="col">
+               Short Description
+            </div>
+            <div class="col">
+                Quantity
+            </div>
+            <div class="col">
+                TotalPrice
+            </div>
+            <div class="col">
+                Actions
+            </div>
+            
+        </div>
+
+        @{
+
+            foreach (var cartItem in Model)
+            {
+                <hr />
+                <div class="row">
+                    <!-- Data Rows - removed the extra container div -->
+
+                    <div class="col">@cartItem.ProductName</div>
+                    <div class="col">@cartItem.ShortDescription</div>
+                    <div class="col">@cartItem.Quantity</div>
+                    <div class="col">@cartItem.TotalPrice</div>
+                    <div class="col">
+                        <div style="display: flex; flex-direction:row; justify-content:center">
+
+                            <i onclick="remove(@cartItem.ProductId)" class="fa-solid fa-circle-xmark fa-lg btn " style="color: #ff0000;"></i>
+
+
+                            <i onclick="add(@cartItem.ProductId)" class="fa-solid fa-cart-plus fa-lg btn" style="color:#00ff11;"></i>
+                             
+
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+
+
+        }
+
+    </div>
+
+
+
+
+</div>
+
+<script>
+    async function remove(productId) {
+        console.log(productId);
+        try {
+            var response = await fetch(`/Home/RemoveFromSession`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId: productId })
+            });
+
+            if (response.status == 401) {
+                window.location.href = "/Identity/Account/Login";
+                return;
+            }
+            else if (response.status == 200) {
+                console.log("Status == 200");
+                location.reload();
+            }
+            else {
+                console.log("function remove(productId) is not working");
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function add(productId) {
+        console.log(productId);
+        try {
+            var response = await fetch(`/Home/SaveToSession`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId: productId })
+            });
+
+            if (response.status == 401) {
+                window.location.href = "/Identity/Account/Login";
+                return;
+            }
+            else if (response.status == 200) {
+                console.log("Status == 200");
+                location.reload();
+            }
+            else {
+                console.log("function add(productId) is not working");
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+</style>

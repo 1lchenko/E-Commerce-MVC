@@ -1,0 +1,74 @@
+﻿@using ECommerce.Models.IdentityModels;
+@model UserDTO
+
+<div style="display: flex; flex-direction: column; align-items: center; margin-top:20px">
+    <h1 class="text-light">Hellow, @Model.UserName</h1>
+    <h2 class="text-light">Below is your makes orders in our shop:</h2>
+</div>
+
+<div style="margin-top:55px" class="container text-center text-light">
+    <!-- Header Row -->
+    
+    <div style="padding-bottom:15px;padding-top:5px" class="container text-center text-light border border-black">
+        <div class="row">
+            <div class="col">
+                Order number
+            </div>
+            <div class="col">
+                Order Total Price
+            </div>
+            <div class="col">
+                Order Adress
+            </div>
+            <div class="col">
+                Order Date
+            </div>
+            <div class="col">
+                Phone Number
+            </div>
+            <div class="col">
+                Your Comment
+            </div>
+            <div class="col">
+                Order Status
+            </div>
+        </div>
+        
+        @{
+            if (Model.Orders.Count == 0)
+            {
+                <p class="text-light">You haven't order</p>
+            }
+            foreach (var item in Model.Orders)
+            {
+                <hr />
+                <div class="row">
+                <!-- Data Rows - removed the extra container div -->
+                 
+                    <div class="col">@item.OrderId</div>
+                    <div class="col">@item.TotalPrice</div>
+                    <div class="col">@item.Adress</div>
+                    <div class="col">@item.OrderDate</div>
+                    <div class="col">@item.PhoneNumber</div>
+                    <div class="col">@item.Comment</div>
+                    <div class="col">@item.Status</div>
+                </div>
+                
+            }
+
+
+        }
+        
+    </div>
+
+
+    
+
+</div>
+<div style="display:flex; justify-content:center; align-items:center" >
+    @if (!ViewBag.LoadAll)
+    {
+        <a style="text-decoration:none; border: 3px solid black; border-radius:10px; color:azure; padding:10px; margin-top:15px" href="@Url.Action("Manage", new { loadAll = true })">Load all orders</a>
+    }
+</div>
+ 

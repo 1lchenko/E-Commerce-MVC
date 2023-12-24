@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce", "E-Commerce\E-Commerce.csproj", "{701EEF10-2F8C-4818-9C57-6C636AD7992F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.UnitTests", "E-Commerce.UnitTests\E-Commerce.UnitTests.csproj", "{199E2A4D-0179-4567-855A-35EE785D38BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.IntegrationTests", "E-Commerce.IntegrationTests\E-Commerce.IntegrationTests.csproj", "{5667AF0C-3CAB-474B-8D39-DBF4D3FB75DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{701EEF10-2F8C-4818-9C57-6C636AD7992F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{701EEF10-2F8C-4818-9C57-6C636AD7992F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{701EEF10-2F8C-4818-9C57-6C636AD7992F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{701EEF10-2F8C-4818-9C57-6C636AD7992F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{199E2A4D-0179-4567-855A-35EE785D38BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199E2A4D-0179-4567-855A-35EE785D38BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199E2A4D-0179-4567-855A-35EE785D38BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199E2A4D-0179-4567-855A-35EE785D38BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5667AF0C-3CAB-474B-8D39-DBF4D3FB75DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5667AF0C-3CAB-474B-8D39-DBF4D3FB75DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5667AF0C-3CAB-474B-8D39-DBF4D3FB75DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5667AF0C-3CAB-474B-8D39-DBF4D3FB75DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
